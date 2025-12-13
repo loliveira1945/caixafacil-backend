@@ -13,7 +13,7 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
-model Client {
+model User {
   id          String   @id @default(uuid())
   name        String
   email       String   @unique
@@ -23,25 +23,25 @@ model Client {
 
   projects    Project[]
 
-  @@map("client")
+  @@map("user")
 }
 
 model Project {
   id                 String     @id @default(uuid())
-  clientId           String
-  client             Client     @relation(fields: [clientId], references: [id])
+  user_id            String
+  user               User     @relation(fields: [user_id], references: [id])
   project_name       String
   email_notification String
   redirect_url       String?
   created_at         DateTime   @default(now())
   updated_at         DateTime   @updatedAt
 
-  submissions       Submission[]
+  messages       Message[]
 
   @@map("project")
 }
 
-model Submission {
+model Message {
   id          String   @id @default(uuid())
   projectId   String
   project     Project  @relation(fields: [projectId], references: [id])
@@ -50,5 +50,5 @@ model Submission {
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
-  @@map("submission")
+  @@map("message")
 }
