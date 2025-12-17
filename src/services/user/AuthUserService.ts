@@ -7,7 +7,7 @@ interface AuthRequest {
   password: string;
 }
 
-class LoginUserService{
+class AuthUserService{
   async execute({email, password}: AuthRequest) {
     const userRepository = new UserRepository();
 
@@ -38,4 +38,4 @@ class LoginUserService{
   }
 }
 
-export { LoginUserService }
+export { AuthUserService }
